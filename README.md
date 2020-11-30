@@ -7,3 +7,6 @@ git clone https://github.com/v01ds/BombEmAll
 cd BombEmAll
 
 python3 BombEmAll.py
+
+# Thanks...
+Special thanks to my partner camelsoft...
