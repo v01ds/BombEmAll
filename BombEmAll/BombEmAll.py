@@ -27,7 +27,7 @@ print(' ')
 reciever = input("Type the reciever mail address and press enter:")
 print(' ')
 
-message = input("Type your the email you want to send: ")
+message = input("Type your message you want to send: ")
 print(' ')
 
 subject = input("Type the subject: ")
