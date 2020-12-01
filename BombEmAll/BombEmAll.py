@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # Some show...
-print(' ')*3
+print(' ')
 print("MAIL BOMBER BY V01DS!!! USE IT WISELY!!!")
-print(' ')*5
+print(' ')
 
 # Setting up default things
 port = 587  # For starttls
