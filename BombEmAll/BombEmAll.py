@@ -14,7 +14,7 @@ port = 587  # For starttls
 smtp_server = "smtp.gmail.com"
 
 # Taking the inputs from the user
-html_ask = input("Do you want to use html? y/N: ")
+html_ask = input("Do you want to use html? y/n: ")
 print(' ')
 
 if html_ask == 'y':
@@ -42,26 +42,31 @@ print(' ')
 sender_pass = input("Type your password and press enter: ")
 print(' ')
 
-sender_mail2 = input("Type your second mail and press enter, don't type anything if you don't use a second mail: ")
-    
+sender_mail2 = input("Type your second mail and press enter, don't type anything if you don't use a second mail: ")   
 print(' ')
 
 sender_pass2 = input("Type your second mails password and press enter: ")
+print(' ')
+
+from_mail = input("From who do you want to send this mail?: ")
 print(' ')
 
 mail_path = input("Enter the mail list path: ")
 good_path = open(mail_path, 'r')
 print(' ')
 
-
-bomb_times = int(input("How many times do you want to send your mails for each address in the list?: "))
-if sender_mail2 != '':
-    if int(bomb_times) == 1:
-        bomb_times = bomb_times
-    if int(bomb_times) % 2 == 1:
-        bomb_times = (bomb_times + 1) / 2    
-    else:
-        bomb_times = bomb_times / 2
+bomb_ask = input("Do you want to bomb these mails with multiple messages? (y/n)")
+if bomb_ask == 'y':
+    bomb_times = int(input("How many times do you want to send your mails for each address in the list?: "))
+    if sender_mail2 != '':
+        if int(bomb_times) == 1:
+            bomb_times = bomb_times
+        if int(bomb_times) % 2 == 1:
+            bomb_times = (bomb_times + 1) / 2    
+        else:
+            bomb_times = bomb_times / 2
+else:
+    bomb_times = 1
 print(' ')
 
 
@@ -71,7 +76,7 @@ def sendFirst():
     try:
         if html_ask == 'y':
             mail = MIMEMultipart("alternative")
-            mail["From"] = reciever
+            mail["From"] = from_mail
             mail["Subject"] = subject
             mail['To'] = reciever
         
@@ -89,7 +94,7 @@ def sendFirst():
     
         elif html_ask != 'y':
             mail = MIMEText(message, "html", "utf-8")
-            mail["From"] = reciever
+            mail["From"] = from_mail
             mail["Subject"] = subject
             mail['To'] = reciever
             mail = mail.as_string()
@@ -107,7 +112,7 @@ def sendSecond():
     try:
         if html_ask == 'y':
             mail2 = MIMEMultipart("alternative")
-            mail2["From"] = reciever
+            mail2["From"] = from_mail
             mail2["Subject"] = subject
             mail2['To'] = reciever
         
@@ -126,7 +131,7 @@ def sendSecond():
         elif html_ask != 'y':
 
             mail2 = MIMEText(message, "html", "utf-8")
-            mail2["From"] = reciever
+            mail2["From"] = from_mail
             mail2["Subject"] = subject
             mail2['To'] = reciever
             mail2 = mail2.as_string()
@@ -150,8 +155,11 @@ while True:
         if not email:
             break
         for i in range(bomb_times):
-                sendFirst()
-                subject = subject + str(1)
+                if bomb_times == 1:
+                    sendFirst()
+                else:
+                    sendFirst()
+                    subject = subject + str(1)
 
     
     else:    
@@ -161,12 +169,12 @@ while True:
         if not email:
             break
         for i in range(int(bomb_times)):
+            if bomb_times == 1:
+                sendFirst()
+                sendSecond()
+            else:
                 sendFirst()
                 sendSecond()
                 subject = subject + str(1)
             
             
-            
-        
-        
-
